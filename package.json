@@ -11,8 +11,7 @@
     "ramda": "^0.26.1",
     "react": "16.8.6",
     "react-native": "0.60.0",
-    "react-native-indicators": "^0.13.0",
-    "react-native-masked-text": "^1.12.3"
+    "react-native-indicators": "^0.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",

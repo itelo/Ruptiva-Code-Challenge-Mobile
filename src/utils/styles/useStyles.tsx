@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
 import ThemeContext, { ThemeType } from "./ThemeContext";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 
 function useStyles<Styles, PropsToGetStyle>(
   stylesCreator: (theme: ThemeType) => Styles
