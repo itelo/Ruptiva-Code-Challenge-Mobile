@@ -29,7 +29,7 @@ export const theme = {
   palette: {
     boring: {
       orange: "#ff6a00",
-      boring: "#00b2ff"
+      blue: "#00b2ff"
     },
     text: {
       primary: "rgba(0, 0, 0, 0.87)",
