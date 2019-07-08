@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -13,6 +13,7 @@ type BottomCardProps = {
   isOpen: boolean;
   onPress(event: GestureResponderEvent): void
   title: string;
+  children: React.ReactNode;
 }
 
 const marginHorizontal = 12;
@@ -92,6 +93,7 @@ const BottomCard = (props: BottomCardProps) => {
     >
       <Text style={{ ...theme.typography.h6, color: "#FFF" }}>{props.title}</Text>
     </TouchableOpacity>
+    {props.children}
   </Animated.View>
 }
 
