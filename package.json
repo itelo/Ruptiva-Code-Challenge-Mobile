@@ -8,11 +8,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@types/react-native-indicators": "^0.13.2",
     "ramda": "^0.26.1",
     "react": "16.8.6",
-    "react-native-iphone-x-helper": "^1.2.0",
     "react-native": "0.60.0",
-    "react-native-indicators": "^0.13.0"
+    "react-native-indicators": "^0.13.0",
+    "react-native-iphone-x-helper": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
