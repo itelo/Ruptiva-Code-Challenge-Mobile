@@ -12,6 +12,7 @@ type CheckBoxProps = {
 
 const CheckBox = (props: CheckBoxProps) => {
   const styles = useStyles(classes, props);
+
   return (
     <TouchableOpacity style={styles.buttonContainer} onPress={props.onPress}>
       <Check checked={props.checked} />

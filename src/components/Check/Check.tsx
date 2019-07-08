@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { ThemeType } from "../../utils/styles/ThemeContext";
+import ThemeContext, { ThemeType } from "../../utils/styles/ThemeContext";
 import useStyles from "../../utils/styles/useStyles";
 
 type CheckProps = {
@@ -8,15 +8,17 @@ type CheckProps = {
 }
 
 const Check = (props: CheckProps) => {
-  const styles = useStyles(classes, props);
+  const styles = useStyles(classes);
+  const theme = React.useContext(ThemeContext);
   return (
   <View style={styles.border}>
-    <View style={styles.innerCircle} />
+    <View style={[styles.innerCircle, 
+    {backgroundColor: props.checked ? theme.palette.boring.blue : "#FFF"}]} />
   </View>
   )
 };
 
-const classes = (theme: ThemeType, props: CheckProps) => ({
+const classes = (theme: ThemeType) => ({
   border: {
     height: 20,
     width: 20,
@@ -28,8 +30,7 @@ const classes = (theme: ThemeType, props: CheckProps) => ({
     height: 14,
     width: 14,
     margin: 2,
-    borderRadius: 10,
-    backgroundColor: props.checked ? theme.palette.boring.blue : "#FFF"
+    borderRadius: 10
   }
 })
 
