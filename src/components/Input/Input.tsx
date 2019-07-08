@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput } from "react-native";
-import useStyles from "../../utils/styles/useStyles";
+import useStyles from "@utils/styles/useStyles";
 
 type InputProps = {
   value: string;

@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   TouchableOpacity,
   Animated,
   GestureResponderEvent,
-} from 'react-native';
-import ThemeContext, { ThemeType } from '../../utils/styles/ThemeContext';
+} from "react-native";
+import ThemeContext, { ThemeType } from "@utils/styles/ThemeContext";
 import { getBottomSpace, getStatusBarHeight } from "react-native-iphone-x-helper";
-import useStyles from '../../utils/styles/useStyles';
+import useStyles from "@utils/styles/useStyles";
 
 type BottomCardProps = {
   isOpen: boolean;

@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text} from "react-native"
-import { ThemeType } from "../../utils/styles/ThemeContext";
-import useStyles from "../../utils/styles/useStyles";
+import { ThemeType } from "@utils/styles/ThemeContext";
+import useStyles from "@utils/styles/useStyles";
 
 
 

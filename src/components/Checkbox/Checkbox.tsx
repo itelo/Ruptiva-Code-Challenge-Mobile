@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, GestureResponderEvent } from "react-native";
-import { ThemeType } from "../../utils/styles/ThemeContext";
-import useStyles from "../../utils/styles/useStyles";
+import { ThemeType } from "@utils/styles/ThemeContext";
+import useStyles from "@utils/styles/useStyles";
 import Check from "../Check";
 
 type CheckBoxProps = {

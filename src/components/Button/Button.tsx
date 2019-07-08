@@ -3,8 +3,8 @@ import { TouchableOpacity, View, GestureResponderEvent, Text } from "react-nativ
 import {
   PulseIndicator,
 } from 'react-native-indicators';
-import { ThemeType } from "../../utils/styles/ThemeContext";
-import useStyles from "../../utils/styles/useStyles";
+import { ThemeType } from "@utils/styles/ThemeContext";
+import useStyles from "@utils/styles/useStyles";
 
 type ButtonProps = {
   disabled: boolean;

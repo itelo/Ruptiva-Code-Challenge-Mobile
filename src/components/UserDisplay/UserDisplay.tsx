@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native"
-import ThemeContext, { ThemeType } from "../../utils/styles/ThemeContext";
-import { formatCNPJ } from "../../utils/cnpj";
-import { formatCPF } from "../../utils/cpf";
-import useStyles from "../../utils/styles/useStyles";
+import ThemeContext from "@utils/styles/ThemeContext";
+import { formatCNPJ } from "@utils/cnpj";
+import { formatCPF } from "@utils/cpf";
+import useStyles from "@utils/styles/useStyles";
 
 type UserDisplayProps = {
   name: string;

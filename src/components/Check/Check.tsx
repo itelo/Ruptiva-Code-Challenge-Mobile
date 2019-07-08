@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import ThemeContext, { ThemeType } from "../../utils/styles/ThemeContext";
-import useStyles from "../../utils/styles/useStyles";
+import ThemeContext, { ThemeType } from "@utils/styles/ThemeContext";
+import useStyles from "@utils/styles/useStyles";
 
 type CheckProps = {
  checked: boolean;
