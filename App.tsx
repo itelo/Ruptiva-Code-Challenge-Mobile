@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,84 +16,149 @@ import {
   View,
   Text,
   StatusBar,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+  Animated,
 } from 'react-native';
+import Checkbox from '@components/Checkbox';
+import ThemeContext from '@utils/styles/ThemeContext';
+import Input from '@components/Input/Input';
+import { formatCPF, validateCPF } from '@utils/cpf';
+import { formatCNPJ, validateCnpj } from '@utils/cnpj';
+import useToggle from '@utils/useToggle';
+import BottomCard from '@components/BottomCard/BottomCard';
+import Button from '@components/Button';
+import ErrorBox from '@components/ErrorBox';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+enum PersonType {
+  individual = "individual",
+  business = "business"
+}
 
 const App = () => {
+  const [document, setDocument] = React.useState("");
+  const [nameText, setNameText] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [personType, setPersonType] = React.useState(PersonType.business);
+  const [isOpen, toggleOpen] = useToggle(false);
+  const [isLoading, toggleLoading] = useToggle(false);
+  const theme = React.useContext(ThemeContext);
+  const isIndividual = React.useMemo(() => personType === PersonType.individual, [personType]);
+
+  const setNewPersonType = React.useCallback((_personType) => {
+    setPersonType(_personType);
+    setDocument("");
+    setError("");
+  }, [isIndividual]);
+
+  const onSubmit = () => {
+    toggleLoading();
+    let _error = "";
+
+    const exp = /\.|\-|\//g;
+    const cleanDocument = document.toString().replace(exp, '');
+
+    if (nameText.length === 0) {
+      _error = 'Nome é um campo obrigatório'
+    } else if (cleanDocument.length === 0) {
+
+      const field = personType === PersonType.individual ? "Cpf" : "Cnpj";
+      _error = `${field} é um campo obrigatório`;
+    } else {
+      const field = personType === PersonType.individual ? "Cpf" : "Cnpj";
+      const validateFunc = personType === PersonType.individual ? validateCPF : validateCnpj;
+      if (!validateFunc(cleanDocument)) {
+        _error = `${field} não é valido`;
+      }
+    }
+
+    if (_error.length > 0) {
+      setError(_error);
+      toggleLoading()
+    } else {
+      setError("");
+      // SUBMIt 
+    }
+  };
+
+
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
+      <View style={{
+        flex: 1,
+        position: "relative"
+      }}>
+
+        <BottomCard isOpen={isOpen} onPress={() => toggleOpen()} title="Usuários" />
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={{
+            flex: 1,
+          }}>
+            <View style={{
+              marginHorizontal: 48
+            }}>
+              <Text style={{
+                ...theme.typography.body1,
+              }}>
+                Tipo de Pessoa
               </Text>
+              <View style={{ height: 4 }} />
+              <Checkbox
+                disabled={isLoading}
+                onPress={() => setNewPersonType(PersonType.individual)}
+                checked={isIndividual}
+                label="Pessoa fisica"
+              />
+              <View style={{ height: 4 }} />
+              <Checkbox
+                disabled={isLoading}
+                onPress={() => setNewPersonType(PersonType.business)}
+                checked={!isIndividual}
+                label="Pessoa juridica"
+              />
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+            <View style={{ height: 4 }} />
+            <Input
+              disabled={isLoading}
+              placeholder="Nome"
+              value={nameText}
+              onChangeText={setNameText}
+            />
+            <View style={{ height: 4 }} />
+            <Input
+              disabled={isLoading}
+              value={document}
+              placeholder={isIndividual ? "CPF" : "CNPJ"}
+              onChangeText={document => {
+                if (isIndividual) {
+                  setDocument(formatCPF(document));
+                } else {
+                  setDocument(formatCNPJ(document));
+                }
+              }}
+            />
+            {
+              error.length > 0 && 
+              <React.Fragment>
+                <View style={{ height: 4 }} />
+                <ErrorBox message={error} />
+              </React.Fragment>
+            }
+            <View style={{ height: 4 }} />
+            <Button
+              disabled={isLoading}
+              isLoading={isLoading}
+              label="Cadastrar"
+              loadingLabel="Enviando"
+              onPress={onSubmit}
+            />
           </View>
-        </ScrollView>
-      </SafeAreaView>
+        </SafeAreaView>
+      </View>
     </Fragment>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
