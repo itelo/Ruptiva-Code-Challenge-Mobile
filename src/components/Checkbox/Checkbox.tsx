@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text, GestureResponderEvent } from "react-native";
+import { TouchableOpacity, Text, GestureResponderEvent } from "react-native";
 import { ThemeType } from "../../utils/styles/ThemeContext";
 import useStyles from "../../utils/styles/useStyles";
 import Check from "../Check";
@@ -8,19 +8,28 @@ type CheckBoxProps = {
   checked: boolean;
   label: string;
   onPress(event: GestureResponderEvent): void;
+  disabled?: boolean
 }
 
 const CheckBox = (props: CheckBoxProps) => {
   const styles = useStyles(classes, props);
 
   return (
-    <TouchableOpacity style={styles.buttonContainer} onPress={props.onPress}>
+    <TouchableOpacity
+      style={styles.buttonContainer}
+      onPress={props.onPress}
+      disabled={props.disabled}
+    >
       <Check checked={props.checked} />
       <Text style={styles.label}>
         {props.label}
       </Text>
     </TouchableOpacity>
   )
+};
+
+CheckBox.defaultProps = {
+  disabled: false
 };
 
 const classes = (theme: ThemeType, props: CheckBoxProps) => ({

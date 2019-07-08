@@ -11,7 +11,6 @@ type UserDisplayProps = {
   type: "individual" | "business";
 }
 
-
 const UserDisplay = (props: UserDisplayProps) => {
   const theme = React.useContext(ThemeContext);
   const styles = useStyles(classes);

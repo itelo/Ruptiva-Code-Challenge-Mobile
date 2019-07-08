@@ -6,16 +6,22 @@ type InputProps = {
   value: string;
   onChangeText(text: string): void;
   placeholder: string;
+  disabled: boolean;
 }
 
 const Input = (props: InputProps) => {
   const styles = useStyles(classes);
   return <TextInput
+    editable={!props.disabled}
     value={props.value}
     placeholder={props.placeholder}
     onChangeText={props.onChangeText}
     style={styles.input}
   />
+}
+
+Input.defaultProps = {
+  disabled: false
 }
 
 const classes = {
