@@ -20,6 +20,7 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
+  FlatList,
 } from 'react-native';
 import Checkbox from '@components/Checkbox';
 import ThemeContext from '@utils/styles/ThemeContext';
@@ -30,7 +31,8 @@ import useToggle from '@utils/useToggle';
 import BottomCard from '@components/BottomCard/BottomCard';
 import Button from '@components/Button';
 import ErrorBox from '@components/ErrorBox';
-
+import {db} from "@utils/firebase";
+import UserDisplay from '@components/UserDisplay';
 enum PersonType {
   individual = "individual",
   business = "business"
@@ -39,10 +41,12 @@ enum PersonType {
 const App = () => {
   const [document, setDocument] = React.useState("");
   const [nameText, setNameText] = React.useState("");
+  const [docs, setDocs] = React.useState([]);
   const [error, setError] = React.useState("");
   const [personType, setPersonType] = React.useState(PersonType.business);
   const [isOpen, toggleOpen] = useToggle(false);
   const [isLoading, toggleLoading] = useToggle(false);
+  const [isLoadingMore, toggleLoadingMore] = useToggle(false);
   const theme = React.useContext(ThemeContext);
   const isIndividual = React.useMemo(() => personType === PersonType.individual, [personType]);
 
@@ -78,9 +82,47 @@ const App = () => {
       toggleLoading()
     } else {
       setError("");
-      // SUBMIt 
+      db.collection("cities").add({
+        name: nameText,
+        document: cleanDocument,
+        type: personType
+      })
+      .then(() => {
+          toggleLoading();
+          setDocument("");
+          setNameText("");
+      })
+      .catch((err) => {
+        Alert.alert("err", err);
+        setError("Erro ao salvar documento");
+        toggleLoading();
+      });
     }
   };
+
+  React.useEffect(() => {
+    db.collection("cities").get().then((querySnapshot) => {
+      const _docs = []
+      querySnapshot.forEach((doc) => {
+          _docs.push(doc.data());
+      });
+
+      setDocs(_docs);
+    });
+  }, []);
+
+  const refresh = () => {
+    toggleLoadingMore()
+    db.collection("cities").get().then((querySnapshot) => {
+      const _docs = []
+      querySnapshot.forEach((doc) => {
+        _docs.push(doc.data());
+      });
+      
+      setDocs(_docs);
+      toggleLoadingMore();
+    });
+  }
 
 
   return (
@@ -91,7 +133,17 @@ const App = () => {
         position: "relative"
       }}>
 
-        <BottomCard isOpen={isOpen} onPress={() => toggleOpen()} title="Usuários" />
+        <BottomCard isOpen={isOpen} onPress={() => toggleOpen()} title="Usuários">
+          <FlatList
+            onRefresh={refresh}
+            data={docs}
+            refreshing={isLoadingMore}
+            renderItem={({item}) => <UserDisplay 
+            name={item.name}
+            document={item.document}
+            type={item.type}/> }
+          />
+          </BottomCard>
         <SafeAreaView style={{ flex: 1 }}>
           <View style={{
             flex: 1,
