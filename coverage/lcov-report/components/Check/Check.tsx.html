@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for utils/styles/useStyles.tsx</title>
+    <title>Code coverage report for components/Check/Check.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,18 +16,18 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">utils/styles</a> useStyles.tsx
+      <a href="../../index.html">All files</a> / <a href="index.html">components/Check</a> Check.tsx
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/10</span>
+        <span class='fraction'>6/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/6</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,16 +35,16 @@
         <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/10</span>
+        <span class='fraction'>5/5</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -81,7 +81,29 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,60 +119,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext, useMemo } from "react";
-import ThemeContext, { ThemeType } from "./ThemeContext";
-import { StyleSheet, Alert } from "react-native";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { View } from "react-native";
+import ThemeContext, { ThemeType } from "@utils/styles/ThemeContext";
+import useStyles from "@utils/styles/useStyles";
 &nbsp;
-function useStyles&lt;Styles, PropsToGetStyle&gt;(
-  stylesCreator: (theme: ThemeType) =&gt; Styles
-): Styles;
-function useStyles&lt;Styles, PropsToGetStyle&gt;(stylesCreator: Styles): Styles;
-function useStyles&lt;Styles, PropsToGetStyle&gt;(
-  stylesCreator: (theme: ThemeType, props: PropsToGetStyle) =&gt; Styles,
-  propsToGetStyle: PropsToGetStyle
-): Styles;
-function useStyles&lt;Styles, PropsToGetStyle&gt;(
-  stylesCreator: Styles,
-  propsToGetStyle?: PropsToGetStyle
-) {
-  const theme = useContext(ThemeContext);
-  let keys = [] as Array&lt;string | number&gt;;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (propsToGetStyle) {
-<span class="cstat-no" title="statement not covered" >    keys = Object.keys(propsToGetStyle);</span>
-  }
-&nbsp;
-  return useMemo(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof stylesCreator === "function") {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (propsToGetStyle) {
-<span class="cstat-no" title="statement not covered" >        return StyleSheet.create(stylesCreator(theme, propsToGetStyle));</span>
-      }
-      return StyleSheet.create(stylesCreator(theme));
-    } else {
-<span class="cstat-no" title="statement not covered" >      return StyleSheet.create(stylesCreator);</span>
-    }
-  }, keys);
+type CheckProps = {
+ checked: boolean;
 }
 &nbsp;
-export default useStyles;
+const Check = (props: CheckProps) =&gt; {
+  const styles = useStyles(classes);
+  const theme = React.useContext(ThemeContext);
+  return (
+  &lt;View style={styles.border}&gt;
+    &lt;View style={[styles.innerCircle, 
+    {backgroundColor: props.checked ? theme.palette.boring.blue : "#FFF"}]} /&gt;
+  &lt;/View&gt;
+  )
+};
+&nbsp;
+const classes = (theme: ThemeType) =&gt; ({
+  border: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderColor: theme.palette.boring.blue,
+    borderWidth: 1
+  },
+  innerCircle: {
+    height: 14,
+    width: 14,
+    margin: 2,
+    borderRadius: 10
+  }
+})
+&nbsp;
+export default Check;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
