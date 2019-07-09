@@ -7,8 +7,10 @@ import { ThemeType } from "@utils/styles/ThemeContext";
 import useStyles from "@utils/styles/useStyles";
 
 type ButtonProps = {
-  disabled: boolean;
-  isLoading: boolean;
+  labelTestID?: string;
+  touchableTestID?: string;
+  disabled?: boolean;
+  isLoading?: boolean;
   label: string;
   loadingLabel: string;
   onPress(event: GestureResponderEvent): void;
@@ -16,19 +18,28 @@ type ButtonProps = {
 
 const Button = (props: ButtonProps) => {
   const styles = useStyles(classes)
-  return (<TouchableOpacity disabled={props.disabled} style={styles.buttonRoot}
-    onPress={props.onPress}
-  >
-    {props.isLoading ? <View style={styles.fixButtonContentWhenLoading}>
-      <View>
-        <PulseIndicator color='white' />
-      </View>
-      <Text style={styles.buttonLabel}>{props.loadingLabel}</Text>
-    </View> :
-      <Text style={styles.buttonLabel}>{props.label}</Text>}
-  </TouchableOpacity>)
+  return (
+    <TouchableOpacity
+      testID={props.touchableTestID}
+      disabled={props.disabled}
+      style={styles.buttonRoot}
+      onPress={props.onPress}
+    >
+      {props.isLoading ? <View style={styles.fixButtonContentWhenLoading}>
+        <View>
+          <PulseIndicator color='white' />
+        </View>
+        <Text testID={props.labelTestID} style={styles.buttonLabel}>{props.loadingLabel}</Text>
+      </View> :
+        <Text testID={props.labelTestID} style={styles.buttonLabel}>{props.label}</Text>}
+    </TouchableOpacity>
+  )
 }
 
+Button.defaultProps = {
+  disabled: false,
+  isLoading: false
+};
 
 const classes = (theme: ThemeType) => ({
   buttonRoot: {
@@ -53,6 +64,6 @@ const classes = (theme: ThemeType) => ({
     justifyContent: "center" as "center",
     flexDirection: "row" as "row"
   }
-})
+});
 
 export default Button;
