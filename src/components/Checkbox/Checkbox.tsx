@@ -5,6 +5,8 @@ import useStyles from "@utils/styles/useStyles";
 import Check from "../Check";
 
 type CheckBoxProps = {
+  touchableTestID?: string
+  labelTestID?: string;
   checked: boolean;
   label: string;
   onPress(event: GestureResponderEvent): void;
@@ -16,12 +18,13 @@ const CheckBox = (props: CheckBoxProps) => {
 
   return (
     <TouchableOpacity
+      testID={props.touchableTestID}
       style={styles.buttonContainer}
       onPress={props.onPress}
       disabled={props.disabled}
     >
       <Check checked={props.checked} />
-      <Text style={styles.label}>
+      <Text style={styles.label} testID={props.labelTestID}>
         {props.label}
       </Text>
     </TouchableOpacity>

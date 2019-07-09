@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for components/Check/Check.tsx</title>
+    <title>Code coverage report for components/Checkbox/Checkbox.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">components/Check</a> Check.tsx
+      <a href="../../index.html">All files</a> / <a href="index.html">components/Checkbox</a> Checkbox.tsx
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -27,7 +27,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -83,7 +83,19 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -92,10 +104,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,12 +121,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,42 +145,54 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import { View } from "react-native";
-import ThemeContext, { ThemeType } from "@utils/styles/ThemeContext";
+import { TouchableOpacity, Text, GestureResponderEvent } from "react-native";
+import { ThemeType } from "@utils/styles/ThemeContext";
 import useStyles from "@utils/styles/useStyles";
+import Check from "../Check";
 &nbsp;
-type CheckProps = {
- checked: boolean;
+type CheckBoxProps = {
+  touchableTestID?: string
+  labelTestID?: string;
+  checked: boolean;
+  label: string;
+  onPress(event: GestureResponderEvent): void;
+  disabled?: boolean
 }
 &nbsp;
-const Check = (props: CheckProps) =&gt; {
-  const styles = useStyles(classes);
-  const theme = React.useContext(ThemeContext);
+const CheckBox = (props: CheckBoxProps) =&gt; {
+  const styles = useStyles(classes, props);
+&nbsp;
   return (
-  &lt;View style={styles.border}&gt;
-    &lt;View style={[styles.innerCircle, 
-    {backgroundColor: props.checked ? theme.palette.boring.blue : "#FFF"}]} /&gt;
-  &lt;/View&gt;
+    &lt;TouchableOpacity
+      testID={props.touchableTestID}
+      style={styles.buttonContainer}
+      onPress={props.onPress}
+      disabled={props.disabled}
+    &gt;
+      &lt;Check checked={props.checked} /&gt;
+      &lt;Text style={styles.label} testID={props.labelTestID}&gt;
+        {props.label}
+      &lt;/Text&gt;
+    &lt;/TouchableOpacity&gt;
   )
 };
 &nbsp;
-const classes = (theme: ThemeType) =&gt; ({
-  border: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    borderColor: theme.palette.boring.blue,
-    borderWidth: 1
+CheckBox.defaultProps = {
+  disabled: false
+};
+&nbsp;
+const classes = (theme: ThemeType, props: CheckBoxProps) =&gt; ({
+  buttonContainer: {
+    flexDirection: "row" as "row",
+    alignItems: "center" as "center"
   },
-  innerCircle: {
-    height: 14,
-    width: 14,
-    margin: 2,
-    borderRadius: 10
+  label: {
+    marginLeft: 8,
+    ...theme.typography.body2,
   }
 })
 &nbsp;
-export default Check;
+export default CheckBox;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
