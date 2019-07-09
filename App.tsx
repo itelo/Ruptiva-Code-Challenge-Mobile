@@ -11,15 +11,9 @@
 import React, { Fragment } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
-  Alert,
-  TextInput,
-  TouchableOpacity,
-  Animated,
   FlatList,
 } from 'react-native';
 import Checkbox from '@components/Checkbox';
@@ -31,22 +25,22 @@ import useToggle from '@utils/useToggle';
 import BottomCard from '@components/BottomCard/BottomCard';
 import Button from '@components/Button';
 import ErrorBox from '@components/ErrorBox';
-import {db} from "@utils/firebase";
+import { db } from "@utils/firebase";
 import UserDisplay from '@components/UserDisplay';
+import { ApiContext } from '@utils/ApiContext';
 enum PersonType {
   individual = "individual",
   business = "business"
 }
 
 const App = () => {
+  const api = React.useContext(ApiContext);
   const [document, setDocument] = React.useState("");
   const [nameText, setNameText] = React.useState("");
-  const [docs, setDocs] = React.useState([]);
   const [error, setError] = React.useState("");
   const [personType, setPersonType] = React.useState(PersonType.business);
   const [isOpen, toggleOpen] = useToggle(false);
   const [isLoading, toggleLoading] = useToggle(false);
-  const [isLoadingMore, toggleLoadingMore] = useToggle(false);
   const theme = React.useContext(ThemeContext);
   const isIndividual = React.useMemo(() => personType === PersonType.individual, [personType]);
 
@@ -82,7 +76,7 @@ const App = () => {
       toggleLoading()
     } else {
       setError("");
-      db.collection("cities").add({
+      api.addDoc({
         name: nameText,
         document: cleanDocument,
         type: personType
@@ -92,37 +86,16 @@ const App = () => {
           setDocument("");
           setNameText("");
       })
-      .catch((err) => {
-        Alert.alert("err", err);
+      .catch(() => {
         setError("Erro ao salvar documento");
         toggleLoading();
       });
     }
   };
 
-  React.useEffect(() => {
-    db.collection("cities").get().then((querySnapshot) => {
-      const _docs = []
-      querySnapshot.forEach((doc) => {
-          _docs.push(doc.data());
-      });
+  React.useEffect(() => { api.getDocs(); }, []);
 
-      setDocs(_docs);
-    });
-  }, []);
-
-  const refresh = () => {
-    toggleLoadingMore()
-    db.collection("cities").get().then((querySnapshot) => {
-      const _docs = []
-      querySnapshot.forEach((doc) => {
-        _docs.push(doc.data());
-      });
-      
-      setDocs(_docs);
-      toggleLoadingMore();
-    });
-  }
+  const refresh = () => api.getDocs();
 
 
   return (
@@ -136,12 +109,14 @@ const App = () => {
         <BottomCard isOpen={isOpen} onPress={() => toggleOpen()} title="Usuários">
           <FlatList
             onRefresh={refresh}
-            data={docs}
-            refreshing={isLoadingMore}
-            renderItem={({item}) => <UserDisplay 
-            name={item.name}
-            document={item.document}
-            type={item.type}/> }
+            data={api.docs}
+            refreshing={api.loadingDocs}
+            renderItem={({ item }) => 
+            <UserDisplay 
+              name={item.name}
+              document={item.document}
+              type={item.type}/> 
+            }
           />
           </BottomCard>
         <SafeAreaView style={{ flex: 1 }}>
